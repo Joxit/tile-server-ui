@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<LINK href="node_modules/material-design-lite/dist/material.min.css" rel="stylesheet" type="text/css">
+<LINK href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css">
+<LINK href="node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
+<LINK href="style.css" rel="stylesheet" type="text/css">
+<title>Color Operations</title>
+</head>
+<body>
+ <!-- Always shows a header, even in smaller screens. -->
+ <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+   <div class="mdl-layout__header-row">
+    <!-- Title -->
+    <span class="mdl-layout-title">Tile Server UI</span>
+    <!-- Add spacer, to align navigation to the right -->
+    <div class="mdl-layout-spacer"></div>
+   </div>
+  </header>
+  <div class="mdl-layout__drawer">
+   <span class="mdl-layout-title">Options</span>
+   <nav class="mdl-navigation">
+    <a class="mdl-navigation__link" href="#">Change url</a>
+   </nav>
+  </div>
+  <main id="" class="mdl-layout__content">
+  <div id="map"></div>
+  </main>
+ </div>
+ <script src="node_modules/material-design-lite/dist/material.min.js"></script>
+ <script src="node_modules/leaflet/dist/leaflet.js"></script>
+ <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+html, body, #map {
+ height: 100%;
+ width: 100%;
+}
+
+#url {
+ width: 50%;
+}
+
+.mdl-navigation {
+ flex-grow: 1;
+}

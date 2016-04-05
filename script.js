@@ -14,13 +14,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var mymap = L.map('map', {zoomControl: true}).setView([ 49, 1.2 ], 13);
-var tileServer = JSON.parse(localStorage.getItem('tileServer'))[0];
-var opts = {
+var leafletUI = {};
+
+leafletUI.map = L.map('map', {
+  zoomControl: true
+}).setView([ 48.8552168, 2.3482104 ], 13);
+
+leafletUI.tileServer = {};
+leafletUI.tileServer.url = JSON.parse(localStorage.getItem('tileServer'))[0];
+leafletUI.tileServer.opts = {
   attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',
   maxZoom: 22,
 };
-L.tileLayer(tileServer, opts).addTo(mymap);
+leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url,
+    leafletUI.tileServer.opts)
+
+leafletUI.tileServer.layer.addTo(leafletUI.map);
 
 var AddButton = L.Control.extend({
   options: {
@@ -32,10 +41,11 @@ var AddButton = L.Control.extend({
     var button = L.DomUtil.create('button',
         'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
     var icon = L.DomUtil.create('i', 'material-icons', button);
+    var dialog = document.querySelector('#add-tile-server-dialog');
+    var input = dialog.querySelector('#tile-server-link');
     icon.textContent = 'add';
     button.id = 'add-tile-server-button'
 
-    var dialog = document.querySelector('#add-tile-server-dialog');
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
@@ -46,7 +56,6 @@ var AddButton = L.Control.extend({
       dialog.close();
     });
     dialog.querySelector('.add').addEventListener('click', function () {
-      var input = dialog.querySelector('#tile-server-link');
       if (input.value && input.value.length > 0) {
         addTileServer(input.value);
       }
@@ -57,8 +66,42 @@ var AddButton = L.Control.extend({
   }
 });
 
-mymap.addControl(new AddButton());
+leafletUI.map.addControl(new AddButton());
+var changeButton = function () {
+  var button = document.querySelector('#change-tile-server-button');
+  var dialog = document.querySelector('#change-tile-server-dialog');
+  if (!dialog.showModal) {
+    dialogPolyfill.registerDialog(dialog);
+  }
+  button.addEventListener('click', function () {
+    var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+    var tileServerList = dialog.querySelector('#tile-server-list');
+    while (0 < tileServerList.children.length) {
+      tileServerList.children.item(0).remove();
+    }
+    if (tileServer) {
+      tileServer.forEach(function (elt) {
+        console.log(elt)
+        var option = document.createElement("option");
+        option.nodeValue = elt;
+        var textnode = document.createTextNode(elt);
+        option.appendChild(textnode);
+        tileServerList.appendChild(option);
+      })
+    }
+    // <option value="saturate">saturate</option>
+    dialog.showModal();
+  });
+  dialog.querySelector('.close').addEventListener('click', function () {
+    dialog.close();
+  });
+  dialog.querySelector('.change').addEventListener('click', function () {
+    dialog.close();
+  });
+  return button;
 
+}
+changeButton();
 var addTileServer = function (url) {
   var tileServer = JSON.parse(localStorage.getItem('tileServer'));
   if (!tileServer || !tileServer instanceof Array) {

@@ -3,6 +3,7 @@
     "jquery": "jquery/jquery",
     "material-design-lite": "^1.1.2",
     "leaflet": "^0.7",
-    "material-design-icons": "^2.2"
+    "material-design-icons": "^2.2",
+    "dialog-polyfill": "^0.4"
   }
 }

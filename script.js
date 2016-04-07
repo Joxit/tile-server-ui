@@ -21,12 +21,14 @@ leafletUI.map = L.map('map', {
 }).setView([ 48.8552168, 2.3482104 ], 13);
 
 leafletUI.tileServer = {};
-leafletUI.tileServer.url = JSON.parse(localStorage.getItem('tileServer'))[0];
+leafletUI.tileServer.url = function () {
+  return JSON.parse(localStorage.getItem('tileServer'))[0];
+}
 leafletUI.tileServer.opts = {
   attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',
   maxZoom: 22,
 };
-leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url,
+leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url(),
     leafletUI.tileServer.opts)
 
 leafletUI.tileServer.layer.addTo(leafletUI.map);
@@ -70,12 +72,12 @@ leafletUI.map.addControl(new AddButton());
 var changeButton = function () {
   var button = document.querySelector('#change-tile-server-button');
   var dialog = document.querySelector('#change-tile-server-dialog');
+  var tileServerList = dialog.querySelector('#tile-server-list');
   if (!dialog.showModal) {
     dialogPolyfill.registerDialog(dialog);
   }
   button.addEventListener('click', function () {
     var tileServer = JSON.parse(localStorage.getItem('tileServer'));
-    var tileServerList = dialog.querySelector('#tile-server-list');
     while (0 < tileServerList.children.length) {
       tileServerList.children.item(0).remove();
     }
@@ -96,6 +98,9 @@ var changeButton = function () {
     dialog.close();
   });
   dialog.querySelector('.change').addEventListener('click', function () {
+    var url = tileServerList.value;
+    changeTileServer(url);
+    leafletUI.tileServer.layer.setUrl(url);
     dialog.close();
   });
   return button;
@@ -110,6 +115,33 @@ var addTileServer = function (url) {
   if (tileServer.indexOf(url) != -1) {
     return;
   }
+  tileServer = [ url ].concat(tileServer);
+  localStorage.setItem('tileServer', JSON.stringify(tileServer));
+}
+
+var removeTileServer = function (url) {
+  var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+  if (!tileServer || !tileServer instanceof Array) {
+    tileServer = [];
+  }
+  var index = tileServer.indexOf(url);
+  if (index == -1) {
+    return;
+  }
+  tileServer.splice(index, 1);
+  localStorage.setItem('tileServer', JSON.stringify(tileServer));
+}
+
+var changeTileServer = function (url){
+  var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+  if (!tileServer || !tileServer instanceof Array) {
+    tileServer = [];
+  }
+  var index = tileServer.indexOf(url);
+  if (index == -1) {
+    return;
+  }
+  tileServer.splice(index, 1)
   tileServer = [ url ].concat(tileServer);
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }

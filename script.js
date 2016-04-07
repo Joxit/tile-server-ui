@@ -22,16 +22,25 @@ leafletUI.map = L.map('map', {
 
 leafletUI.tileServer = {};
 leafletUI.tileServer.url = function () {
-  return JSON.parse(localStorage.getItem('tileServer'))[0];
+  return JSON.parse(localStorage.getItem('tileServer'))[0] || '';
 }
+
+leafletUI.tileServer.overlayUrl = function () {
+  return JSON.parse(localStorage.getItem('tileServerOverlay')) || '';
+}
+
 leafletUI.tileServer.opts = {
   attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',
   maxZoom: 22,
 };
 leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url(),
-    leafletUI.tileServer.opts)
+    leafletUI.tileServer.opts);
+
+leafletUI.tileServer.overlay = L.tileLayer(leafletUI.tileServer.overlayUrl(),
+    leafletUI.tileServer.opts);
 
 leafletUI.tileServer.layer.addTo(leafletUI.map);
+leafletUI.tileServer.overlay.addTo(leafletUI.map);
 
 var AddButton = L.Control.extend({
   options: {
@@ -103,6 +112,12 @@ var changeButton = function () {
     leafletUI.tileServer.layer.setUrl(url);
     dialog.close();
   });
+  dialog.querySelector('.overlay').addEventListener('click', function () {
+    var url = tileServerList.value;
+    localStorage.setItem('tileServerOverlay', JSON.stringify(url));
+    leafletUI.tileServer.overlay.setUrl(url);
+    dialog.close();
+  });
   return button;
 
 }
@@ -132,7 +147,7 @@ var removeTileServer = function (url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-var changeTileServer = function (url){
+var changeTileServer = function (url) {
   var tileServer = JSON.parse(localStorage.getItem('tileServer'));
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];

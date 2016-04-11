@@ -39,7 +39,7 @@
   <div class="mdl-layout__drawer">
    <span class="mdl-layout-title">Options</span>
    <nav class="mdl-navigation">
-    <a id="change-tile-server-button" class="mdl-navigation__link">Change url</a>
+    <a id="change-tile-server-button" class="mdl-navigation__link" onClick="leafletUI.changeTag.show();">Change url</a>
    </nav>
   </div>
   <dialog id="add-tile-server-dialog" class="mdl-dialog">
@@ -55,22 +55,12 @@
    <button type="button" class="mdl-button close">Cancel</button>
   </div>
   </dialog>
-  <dialog id="change-tile-server-dialog" class="mdl-dialog">
-  <h4 class="mdl-dialog__title">Change your Tile Server ?</h4>
-  <div class="mdl-dialog__content">
-   <div class="mdl-textfield mdl-js-textfield">
-    <select class="mdl-textfield__input mdl-textfield__select" name="tile-server-list" id="tile-server-list">
-    </select>
-   </div>
-  </div>
-  <div class="mdl-dialog__actions">
-   <button type="button" class="mdl-button change">Change</button>
-   <button type="button" class="mdl-button overlay">Overlay</button>
-   <button type="button" class="mdl-button close">Cancel</button>
-  </div>
-  </dialog>
+  <change></change>
   <main id="map" class="mdl-layout__content"> </main>
  </div>
+ <script type="riot/tag" src="change.tag"></script>
+ 
+ <script src="node_modules/riot/riot+compiler.js"></script>
  <script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>
  <script src="node_modules/material-design-lite/dist/material.min.js"></script>
  <script src="node_modules/leaflet/dist/leaflet.js"></script>

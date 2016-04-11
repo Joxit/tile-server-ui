@@ -4,6 +4,7 @@
     "material-design-lite": "^1.1",
     "leaflet": "^0.7",
     "material-design-icons": "^2.2",
-    "dialog-polyfill": "^0.4"
+    "dialog-polyfill": "^0.4",
+    "riot": "^2.3"
   }
 }

@@ -21,8 +21,9 @@ leafletUI.map = L.map('map', {
 }).setView([ 48.8552168, 2.3482104 ], 13);
 
 leafletUI.tileServer = {};
+leafletUI.tileServer.servers = JSON.parse(localStorage.getItem('tileServer'));
 leafletUI.tileServer.url = function () {
-  return JSON.parse(localStorage.getItem('tileServer'))[0] || '';
+  return leafletUI.tileServer.servers[0] || '';
 }
 
 leafletUI.tileServer.overlayUrl = function () {
@@ -78,50 +79,7 @@ var AddButton = L.Control.extend({
 });
 
 leafletUI.map.addControl(new AddButton());
-var changeButton = function () {
-  var button = document.querySelector('#change-tile-server-button');
-  var dialog = document.querySelector('#change-tile-server-dialog');
-  var tileServerList = dialog.querySelector('#tile-server-list');
-  if (!dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog);
-  }
-  button.addEventListener('click', function () {
-    var tileServer = JSON.parse(localStorage.getItem('tileServer'));
-    while (0 < tileServerList.children.length) {
-      tileServerList.children.item(0).remove();
-    }
-    if (tileServer) {
-      tileServer.forEach(function (elt) {
-        console.log(elt)
-        var option = document.createElement("option");
-        option.nodeValue = elt;
-        var textnode = document.createTextNode(elt);
-        option.appendChild(textnode);
-        tileServerList.appendChild(option);
-      })
-    }
-    // <option value="saturate">saturate</option>
-    dialog.showModal();
-  });
-  dialog.querySelector('.close').addEventListener('click', function () {
-    dialog.close();
-  });
-  dialog.querySelector('.change').addEventListener('click', function () {
-    var url = tileServerList.value;
-    changeTileServer(url);
-    leafletUI.tileServer.layer.setUrl(url);
-    dialog.close();
-  });
-  dialog.querySelector('.overlay').addEventListener('click', function () {
-    var url = tileServerList.value;
-    localStorage.setItem('tileServerOverlay', JSON.stringify(url));
-    leafletUI.tileServer.overlay.setUrl(url);
-    dialog.close();
-  });
-  return button;
 
-}
-changeButton();
 var addTileServer = function (url) {
   var tileServer = JSON.parse(localStorage.getItem('tileServer'));
   if (!tileServer || !tileServer instanceof Array) {
@@ -131,6 +89,7 @@ var addTileServer = function (url) {
     return;
   }
   tileServer = [ url ].concat(tileServer);
+  leafletUI.tileServer.servers = tileServer;
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
@@ -144,6 +103,7 @@ var removeTileServer = function (url) {
     return;
   }
   tileServer.splice(index, 1);
+  leafletUI.tileServer.servers = tileServer;
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
@@ -158,5 +118,34 @@ var changeTileServer = function (url) {
   }
   tileServer.splice(index, 1)
   tileServer = [ url ].concat(tileServer);
+  leafletUI.tileServer.servers = tileServer;
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
+
+leafletUI.changeTag = {}
+leafletUI.changeTag.close = function () {
+  document.querySelector('#change-tile-server-dialog').close();
+  leafletUI.changeTag.update();
+};
+leafletUI.changeTag.change = function () {
+  var url = leafletUI.changeTag.tileServerList.value;
+  changeTileServer(url);
+  leafletUI.tileServer.layer.setUrl(url);
+  leafletUI.changeTag.close();
+};
+leafletUI.changeTag.overlay = function () {
+  var url = leafletUI.changeTag.tileServerList.value;
+  localStorage.setItem('tileServerOverlay', JSON.stringify(url));
+  leafletUI.tileServer.overlay.setUrl(url);
+  leafletUI.changeTag.close();
+}
+leafletUI.changeTag.show = function () {
+  leafletUI.changeTag.update();
+  if (leafletUI.changeTag.tileServerList) {
+    leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();
+  }
+  leafletUI.changeTag.dialog.showModal();
+};
+riot.compile(function () {
+  riot.mount('change')
+})

@@ -21,9 +21,21 @@ leafletUI.map = L.map('map', {
 }).setView([ 48.8552168, 2.3482104 ], 13);
 
 leafletUI.tileServer = {};
-leafletUI.tileServer.servers = JSON.parse(localStorage.getItem('tileServer'));
+leafletUI.tileServer.getServers = function (i) {
+  try {
+    var res = JSON.parse(localStorage.getItem('tileServer'));
+    if (res instanceof Array) {
+      return i ? res[i] : res;
+    }
+  } catch (e) {}
+  return i ? '' : [];
+};
+leafletUI.tileServer.servers = leafletUI.tileServer.getServers();
 leafletUI.tileServer.url = function () {
-  return leafletUI.tileServer.servers[0] || '';
+  if (leafletUI.tileServer.servers && leafletUI.tileServer.servers.length > 0) {
+    return leafletUI.tileServer.servers[0] || '';
+  }
+  return '';
 }
 
 leafletUI.tileServer.overlayUrl = function () {
@@ -81,7 +93,7 @@ var AddButton = L.Control.extend({
 leafletUI.map.addControl(new AddButton());
 
 var addTileServer = function (url) {
-  var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+  var tileServer = leafletUI.tileServer.getServers();
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
   }
@@ -94,7 +106,7 @@ var addTileServer = function (url) {
 }
 
 var removeTileServer = function (url) {
-  var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+  var tileServer = leafletUI.tileServer.getServers()
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
   }
@@ -108,7 +120,7 @@ var removeTileServer = function (url) {
 }
 
 var changeTileServer = function (url) {
-  var tileServer = JSON.parse(localStorage.getItem('tileServer'));
+  var tileServer = leafletUI.tileServer.getServers()
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
   }

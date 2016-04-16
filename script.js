@@ -17,7 +17,7 @@
 var leafletUI = {};
 
 leafletUI.map = L.map('map', {
-  zoomControl: true
+  zoomControl: false
 }).setView([ 48.8552168, 2.3482104 ], 13);
 
 leafletUI.tileServer = {};

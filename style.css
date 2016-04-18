@@ -26,3 +26,33 @@ html, body, #map {
 .mdl-navigation {
  flex-grow: 1;
 }
+
+.zoom-control {
+ display: block;
+}
+.zoom-control button {
+ display: block;
+ text-align: center;
+ text-decoration: none;
+}
+
+.zoom-control-button {
+ min-width: 0px;
+ width: 32px;
+ padding: 0;
+ justify-content: center;
+ align-items: center;
+ font-size: 18px;
+ font-weight: bold;
+ text-indent: 0px;
+ border-radius: 0;
+}
+
+.zoom-control button:first-child {
+ border-top-left-radius: 2px;
+ border-top-right-radius: 2px;
+}
+.zoom-control button:last-child {
+border-bottom-right-radius: 2px;
+border-bottom-left-radius: 2px;
+}

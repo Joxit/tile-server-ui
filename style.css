@@ -23,6 +23,11 @@ html, body, #map {
  width: 50%;
 }
 
+.url {
+ font-size: 14px;
+ word-break: break-all;
+}
+
 .mdl-navigation {
  flex-grow: 1;
 }

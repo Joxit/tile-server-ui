@@ -40,6 +40,7 @@
    <span class="mdl-layout-title">Options</span>
    <nav class="mdl-navigation">
     <a id="change-tile-server-button" class="mdl-navigation__link" onClick="leafletUI.changeTag.show();">Change url</a>
+    <a id="change-tile-server-button" class="mdl-navigation__link" onClick="leafletUI.removeTag.show();">Remove url</a>
    </nav>
   </div>
   <dialog id="add-tile-server-dialog" class="mdl-dialog">
@@ -56,9 +57,11 @@
   </div>
   </dialog>
   <change></change>
+  <remove></remove>
   <main id="map" class="mdl-layout__content"> </main>
  </div>
  <script type="riot/tag" src="change.tag"></script>
+ <script type="riot/tag" src="remove.tag"></script>
  <script src="node_modules/riot/riot+compiler.js"></script>
  <script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>
  <script src="node_modules/material-design-lite/dist/material.min.js"></script>

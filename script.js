@@ -86,6 +86,14 @@ var AddButton = L.Control.extend({
       input.value = '';
       dialog.close();
     });
+    dialog.querySelector('.add-set').addEventListener('click', function () {
+      if (input.value && input.value.length > 0) {
+        addTileServer(input.value);
+        leafletUI.tileServer.layer.setUrl(input.value);
+      }
+      input.value = '';
+      dialog.close();
+    });
     return button;
   }
 });

@@ -18,11 +18,11 @@ MAINTAINER Jones MAGLOIRE @Joxit
 
 WORKDIR /usr/src/app
 
-RUN npm install -g http-server
+RUN npm install -g http-server && npm cache clean
 
 COPY package.json /usr/src/app
 
-RUN npm install
+RUN npm install && find node_modules/ -maxdepth 1 -mindepth 1 -type d ! -name riot ! -name material-design-icons ! -name leaflet ! -name material-design-* ! -name dialog-polyfill -exec rm -rf {} \; && find node_modules/material-design-* -maxdepth 1 -mindepth 1 ! -name package.json ! -name iconfont ! -name LICENSE ! -name material* ! -name dist -exec rm -rf {} \; && find node_modules/material-design-lite/dist/ -maxdepth 1 -mindepth 1 ! -name "*.js*" ! -name "*.css*" -exec rm -rf {} \; && npm cache clean
 
 COPY . /usr/src/app
 

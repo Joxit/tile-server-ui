@@ -43,6 +43,7 @@ leafletUI.control.zoom = L.Control.extend({
       if (callback) {
         L.DomEvent.on(button, 'click', callback, self);
       }
+      L.DomEvent.disableClickPropagation(button);
       return button;
     }
 

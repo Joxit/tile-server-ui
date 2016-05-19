@@ -16,44 +16,47 @@
 -->
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<LINK href="node_modules/dialog-polyfill/dialog-polyfill.css" rel="stylesheet" type="text/css">
-<LINK href="node_modules/material-design-lite/dist/material.min.css" rel="stylesheet" type="text/css">
-<LINK href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css">
-<LINK href="node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
-<LINK href="style.css" rel="stylesheet" type="text/css">
-<title>Tile Server UI</title>
+  <meta charset="UTF-8">
+  <LINK href="node_modules/dialog-polyfill/dialog-polyfill.css" rel="stylesheet" type="text/css">
+  <LINK href="node_modules/material-design-lite/dist/material.min.css" rel="stylesheet" type="text/css">
+  <LINK href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css">
+  <LINK href="node_modules/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
+  <LINK href="style.css" rel="stylesheet" type="text/css">
+  <title>Tile Server UI</title>
 </head>
+
 <body>
- <div class="mdl-layout mdl-js-layout">
-  <dialog id="add-tile-server-dialog" class="mdl-dialog">
-  <h4 class="mdl-dialog__title">Add a new Tile Server to your list ?</h4>
-  <div class="mdl-dialog__content">
-   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="tile-server-link"> <label class="mdl-textfield__label" for="tile-server-link">Tile
-     Server URL</label>
-   </div>
+  <div class="mdl-layout mdl-js-layout">
+    <dialog id="add-tile-server-dialog" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Add a new Tile Server to your list ?</h4>
+      <div class="mdl-dialog__content">
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="tile-server-link">
+          <label class="mdl-textfield__label" for="tile-server-link">Tile Server URL</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button add">Add</button>
+        <button type="button" class="mdl-button add-set">Set</button>
+        <button type="button" class="mdl-button close">Cancel</button>
+      </div>
+    </dialog>
+    <change></change>
+    <remove></remove>
+    <main id="map" class="mdl-layout__content"> </main>
   </div>
-  <div class="mdl-dialog__actions">
-   <button type="button" class="mdl-button add">Add</button>
-   <button type="button" class="mdl-button add-set">Set</button>
-   <button type="button" class="mdl-button close">Cancel</button>
-  </div>
-  </dialog>
-  <change></change>
-  <remove></remove>
-  <main id="map" class="mdl-layout__content"> </main>
- </div>
- <script type="riot/tag" src="change.tag"></script>
- <script type="riot/tag" src="remove.tag"></script>
- <script src="node_modules/riot/riot+compiler.js"></script>
- <script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>
- <script src="node_modules/material-design-lite/dist/material.min.js"></script>
- <script src="node_modules/leaflet/dist/leaflet.js"></script>
- <script src="script.js"></script>
- <script src="control-zoom.js"></script>
- <script src="control-menu.js"></script>
- <script src="control-add.js"></script>
+  <script type="riot/tag" src="change.tag"></script>
+  <script type="riot/tag" src="remove.tag"></script>
+  <script src="node_modules/riot/riot+compiler.js"></script>
+  <script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>
+  <script src="node_modules/material-design-lite/dist/material.min.js"></script>
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+  <script src="control-zoom.js"></script>
+  <script src="control-menu.js"></script>
+  <script src="control-add.js"></script>
 </body>
+
 </html>

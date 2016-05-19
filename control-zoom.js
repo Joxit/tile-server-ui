@@ -32,10 +32,10 @@ leafletUI.control.zoom = L.Control.extend({
     }
   },
 
-  onAdd: function (map) {
+  onAdd: function(map) {
     var container = L.DomUtil.create('div', 'zoom-control');
     var self = this;
-    var createButton = function (opts, callback) {
+    var createButton = function(opts, callback) {
       var button = L.DomUtil.create('button',
         'mdl-button mdl-js-button mdl-button--raised mdl-button--colored zoom-control-button', container);
       button.innerHTML = opts.text;
@@ -48,14 +48,14 @@ leafletUI.control.zoom = L.Control.extend({
     }
 
     this._zoomInButton = createButton(this.options.zoomIn,
-            function (e) {
-              leafletUI.map.zoomIn(e.shiftKey ? 3 : 1);
-            });
+      function(e) {
+        leafletUI.map.zoomIn(e.shiftKey ? 3 : 1);
+      });
 
     this._zoomOutButton = createButton(this.options.zoomOut,
-            function (e) {
-              leafletUI.map.zoomOut(e.shiftKey ? 3 : 1);
-            });
+      function(e) {
+        leafletUI.map.zoomOut(e.shiftKey ? 3 : 1);
+      });
 
     this._zoomButton = createButton(this.options.zoom);
 
@@ -65,19 +65,19 @@ leafletUI.control.zoom = L.Control.extend({
     return container;
   },
 
-  _onZoomUpdate: function () {
+  _onZoomUpdate: function() {
     this._zoomInButton.removeAttribute('disabled');
     this._zoomOutButton.removeAttribute('disabled');
 
     if (leafletUI.map._zoom === leafletUI.map.getMinZoom()) {
-    this._zoomOutButton.setAttribute('disabled', '');
+      this._zoomOutButton.setAttribute('disabled', '');
     }
     if (leafletUI.map._zoom === leafletUI.map.getMaxZoom()) {
-    this._zoomInButton.setAttribute('disabled', '');
+      this._zoomInButton.setAttribute('disabled', '');
     }
 
     this._zoomButton.innerHTML = leafletUI.map._zoom;
   }
 });
 
-leafletUI.map.addControl(new leafletUI.control.zoom())
+leafletUI.map.addControl(new leafletUI.control.zoom());

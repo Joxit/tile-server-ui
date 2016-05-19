@@ -21,9 +21,9 @@ leafletUI.control.add = L.Control.extend({
     position: 'bottomright'
   },
 
-  onAdd: function (map) {
+  onAdd: function(map) {
     var button = L.DomUtil.create('button',
-        'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
+      'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
     var icon = L.DomUtil.create('i', 'material-icons', button);
     var dialog = document.querySelector('#add-tile-server-dialog');
     var input = dialog.querySelector('#tile-server-link');
@@ -33,20 +33,20 @@ leafletUI.control.add = L.Control.extend({
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function() {
       dialog.showModal();
     });
-    dialog.querySelector('.close').addEventListener('click', function () {
+    dialog.querySelector('.close').addEventListener('click', function() {
       dialog.close();
     });
-    dialog.querySelector('.add').addEventListener('click', function () {
+    dialog.querySelector('.add').addEventListener('click', function() {
       if (input.value && input.value.length > 0) {
         addTileServer(input.value);
       }
       input.value = '';
       dialog.close();
     });
-    dialog.querySelector('.add-set').addEventListener('click', function () {
+    dialog.querySelector('.add-set').addEventListener('click', function() {
       if (input.value && input.value.length > 0) {
         addTileServer(input.value);
         changeTileServer(input.value);
@@ -60,4 +60,3 @@ leafletUI.control.add = L.Control.extend({
 });
 
 leafletUI.map.addControl(new leafletUI.control.add());
-

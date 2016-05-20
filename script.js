@@ -147,4 +147,5 @@ leafletUI.removeTag.overlay = function() {
 riot.compile(function() {
   riot.mount('change');
   riot.mount('remove');
+  riot.mount('add');
 });

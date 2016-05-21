@@ -37,11 +37,31 @@
     </div>
   </dialog>
   <script type="text/javascript">
+    leafletUI.removeTag = leafletUI.removeTag || {}
     leafletUI.removeTag.update = this.update;
     leafletUI.removeTag.removeUrl = function (a) {
       removeTileServer(a.parentElement.querySelector(".url").innerText);
       leafletUI.removeTag.update();
     };
+
+    leafletUI.removeTag.close = function () {
+      leafletUI.removeTag.dialog.close();
+      leafletUI.removeTag.update();
+    };
+
+    leafletUI.removeTag.show = function () {
+      leafletUI.removeTag.update();
+      if (leafletUI.removeTag.tileServerList) {
+        leafletUI.removeTag.tileServerList.value = leafletUI.tileServer.url();
+      }
+      leafletUI.removeTag.dialog.showModal();
+    };
+
+    leafletUI.removeTag.overlay = function () {
+      localStorage.setItem('tileServerOverlay', '');
+      leafletUI.tileServer.overlay.setUrl('');
+    };
+
     this.on('updated', function () {
       leafletUI.removeTag.dialog = this['remove-tile-server-dialog'];
       leafletUI.removeTag.tileServerList = this['tile-server-remove-list'];

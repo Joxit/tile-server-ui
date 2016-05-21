@@ -100,31 +100,6 @@ var changeTileServer = function(url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-leafletUI.changeTag = {};
-leafletUI.changeTag.close = function() {
-  document.querySelector('#change-tile-server-dialog').close();
-  leafletUI.changeTag.update();
-};
-leafletUI.changeTag.change = function() {
-  var url = leafletUI.changeTag.tileServerList.value;
-  changeTileServer(url);
-  leafletUI.tileServer.layer.setUrl(url);
-  leafletUI.changeTag.close();
-};
-leafletUI.changeTag.overlay = function() {
-  var url = leafletUI.changeTag.tileServerList.value;
-  localStorage.setItem('tileServerOverlay', JSON.stringify(url));
-  leafletUI.tileServer.overlay.setUrl(url);
-  leafletUI.changeTag.close();
-}
-leafletUI.changeTag.show = function() {
-  leafletUI.changeTag.update();
-  if (leafletUI.changeTag.tileServerList) {
-    leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();
-  }
-  leafletUI.changeTag.dialog.showModal();
-};
-
 leafletUI.removeTag = {}
 leafletUI.removeTag.close = function() {
   document.querySelector('#remove-tile-server-dialog').close();

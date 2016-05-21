@@ -31,10 +31,35 @@
     </div>
   </dialog>
   <script type="text/javascript">
+  leafletUI.changeTag = leafletUI.changeTag || {};
     leafletUI.changeTag.update = this.update;
+    leafletUI.changeTag.close = function() {
+      leafletUI.changeTag.dialog.close();
+      leafletUI.changeTag.update();
+    };
+    leafletUI.changeTag.change = function() {
+      var url = leafletUI.changeTag.tileServerList.value;
+      changeTileServer(url);
+      leafletUI.tileServer.layer.setUrl(url);
+      leafletUI.changeTag.close();
+    };
+    leafletUI.changeTag.overlay = function() {
+      var url = leafletUI.changeTag.tileServerList.value;
+      localStorage.setItem('tileServerOverlay', JSON.stringify(url));
+      leafletUI.tileServer.overlay.setUrl(url);
+      leafletUI.changeTag.close();
+    }
+    leafletUI.changeTag.show = function() {
+      leafletUI.changeTag.update();
+      if (leafletUI.changeTag.tileServerList) {
+        leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();
+      }
+      leafletUI.changeTag.dialog.showModal();
+    };
     this.on('updated', function () {
       leafletUI.changeTag.dialog = this['change-tile-server-dialog'];
       leafletUI.changeTag.tileServerList = this['tile-server-list'];
+      componentHandler.upgradeElements(leafletUI.changeTag.dialog);
       if (!leafletUI.changeTag.dialog.showModal) {
         dialogPolyfill.registerDialog(leafletUI.changeTag.dialog);
       }

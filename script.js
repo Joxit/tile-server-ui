@@ -18,10 +18,10 @@ var leafletUI = {};
 
 leafletUI.map = L.map('map', {
   zoomControl: false
-}).setView([ 48.8552168, 2.3482104 ], 13);
+}).setView([48.8552168, 2.3482104], 13);
 
 leafletUI.tileServer = {};
-leafletUI.tileServer.getServers = function (i) {
+leafletUI.tileServer.getServers = function(i) {
   try {
     var res = JSON.parse(localStorage.getItem('tileServer'));
     if (res instanceof Array) {
@@ -31,14 +31,14 @@ leafletUI.tileServer.getServers = function (i) {
   return i ? '' : [];
 };
 leafletUI.tileServer.servers = leafletUI.tileServer.getServers();
-leafletUI.tileServer.url = function () {
+leafletUI.tileServer.url = function() {
   if (leafletUI.tileServer.servers && leafletUI.tileServer.servers.length > 0) {
     return leafletUI.tileServer.servers[0] || '';
   }
   return '';
 }
 
-leafletUI.tileServer.overlayUrl = function () {
+leafletUI.tileServer.overlayUrl = function() {
   return JSON.parse(localStorage.getItem('tileServerOverlay')) || '';
 }
 
@@ -47,15 +47,15 @@ leafletUI.tileServer.opts = {
   maxZoom: 22,
 };
 leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url(),
-    leafletUI.tileServer.opts);
+  leafletUI.tileServer.opts);
 
 leafletUI.tileServer.overlay = L.tileLayer(leafletUI.tileServer.overlayUrl(),
-    leafletUI.tileServer.opts);
+  leafletUI.tileServer.opts);
 
 leafletUI.tileServer.layer.addTo(leafletUI.map);
 leafletUI.tileServer.overlay.addTo(leafletUI.map);
 
-var addTileServer = function (url) {
+var addTileServer = function(url) {
   var tileServer = leafletUI.tileServer.getServers();
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
@@ -69,7 +69,7 @@ var addTileServer = function (url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-var removeTileServer = function (url) {
+var removeTileServer = function(url) {
   var tileServer = leafletUI.tileServer.getServers()
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
@@ -84,7 +84,7 @@ var removeTileServer = function (url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-var changeTileServer = function (url) {
+var changeTileServer = function(url) {
   var tileServer = leafletUI.tileServer.getServers()
   if (!tileServer || !tileServer instanceof Array) {
     tileServer = [];
@@ -95,56 +95,13 @@ var changeTileServer = function (url) {
     return;
   }
   tileServer.splice(index, 1);
-  tileServer = [ url ].concat(tileServer);
+  tileServer = [url].concat(tileServer);
   leafletUI.tileServer.servers = tileServer;
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-leafletUI.changeTag = {};
-leafletUI.changeTag.close = function () {
-  document.querySelector('#change-tile-server-dialog').close();
-  leafletUI.changeTag.update();
-};
-leafletUI.changeTag.change = function () {
-  var url = leafletUI.changeTag.tileServerList.value;
-  changeTileServer(url);
-  leafletUI.tileServer.layer.setUrl(url);
-  leafletUI.changeTag.close();
-};
-leafletUI.changeTag.overlay = function () {
-  var url = leafletUI.changeTag.tileServerList.value;
-  localStorage.setItem('tileServerOverlay', JSON.stringify(url));
-  leafletUI.tileServer.overlay.setUrl(url);
-  leafletUI.changeTag.close();
-}
-leafletUI.changeTag.show = function () {
-  leafletUI.changeTag.update();
-  if (leafletUI.changeTag.tileServerList) {
-    leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();
-  }
-  leafletUI.changeTag.dialog.showModal();
-};
-
-leafletUI.removeTag = {}
-leafletUI.removeTag.close = function () {
-  document.querySelector('#remove-tile-server-dialog').close();
-  leafletUI.removeTag.update();
-};
-
-leafletUI.removeTag.show = function () {
-  leafletUI.removeTag.update();
-  if (leafletUI.removeTag.tileServerList) {
-    leafletUI.removeTag.tileServerList.value = leafletUI.tileServer.url();
-  }
-  leafletUI.removeTag.dialog.showModal();
-};
-
-leafletUI.removeTag.overlay = function () {
-  localStorage.setItem('tileServerOverlay', '');
-  leafletUI.tileServer.overlay.setUrl('');
-};
-
-riot.compile(function () {
+riot.compile(function() {
   riot.mount('change');
   riot.mount('remove');
+  riot.mount('add');
 });

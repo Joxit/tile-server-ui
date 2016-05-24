@@ -20,7 +20,7 @@ leafletUI.control.menu = L.Control.extend({
     position: 'topright'
   },
 
-  onAdd: function (map) {
+  onAdd: function(map) {
     var container = L.DomUtil.create('div', 'menu-control');
     var self = this;
     var menu = L.DomUtil.create('button', 'mdl-button mdl-js-button mdl-button--icon', container);
@@ -35,11 +35,15 @@ leafletUI.control.menu = L.Control.extend({
       item.innerHTML = innerHTML;
       item.onclick = callback;
     };
-    addItem('change-tile-server-button', 'Change url', leafletUI.changeTag.show)
-    addItem('remove-tile-server-button', 'Remove url', leafletUI.removeTag.show)
+    addItem('change-tile-server-button', 'Change url', function() {
+      leafletUI.changeTag.show();
+    });
+    addItem('remove-tile-server-button', 'Remove url', function() {
+      leafletUI.removeTag.show();
+    });
     return container;
   },
 
 });
 
-leafletUI.map.addControl(new leafletUI.control.menu())
+leafletUI.map.addControl(new leafletUI.control.menu());

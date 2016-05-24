@@ -21,43 +21,17 @@ leafletUI.control.add = L.Control.extend({
     position: 'bottomright'
   },
 
-  onAdd: function (map) {
+  onAdd: function(map) {
     var button = L.DomUtil.create('button',
-        'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
-    var icon = L.DomUtil.create('i', 'material-icons', button);
-    var dialog = document.querySelector('#add-tile-server-dialog');
-    var input = dialog.querySelector('#tile-server-link');
-    icon.textContent = 'add';
+      'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
+    L.DomUtil.create('i', 'material-icons', button).textContent = 'add';
     button.id = 'add-tile-server-button'
 
-    if (!dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    button.addEventListener('click', function () {
-      dialog.showModal();
-    });
-    dialog.querySelector('.close').addEventListener('click', function () {
-      dialog.close();
-    });
-    dialog.querySelector('.add').addEventListener('click', function () {
-      if (input.value && input.value.length > 0) {
-        addTileServer(input.value);
-      }
-      input.value = '';
-      dialog.close();
-    });
-    dialog.querySelector('.add-set').addEventListener('click', function () {
-      if (input.value && input.value.length > 0) {
-        addTileServer(input.value);
-        changeTileServer(input.value);
-        leafletUI.tileServer.layer.setUrl(input.value);
-      }
-      input.value = '';
-      dialog.close();
+    button.addEventListener('click', function() {
+      leafletUI.addTag.dialog.showModal();
     });
     return button;
   }
 });
 
 leafletUI.map.addControl(new leafletUI.control.add());
-

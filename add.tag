@@ -22,6 +22,7 @@
         <input class="mdl-textfield__input" type="text" id="tile-server-link">
         <label class="mdl-textfield__label" for="tile-server-link">Tile Server URL</label>
       </div>
+      <span for="tile-server-link">Use leaflet notation eg: http://url/\{z\}/\{x\}/\{y\}.png</span>
     </div>
     <div class="mdl-dialog__actions">
       <button type="button" class="mdl-button" onclick="leafletUI.addTag.add();">Add</button>

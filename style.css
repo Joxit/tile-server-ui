@@ -64,3 +64,7 @@ html, body, #map {
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
 }
+
+.mdl-dialog__title {
+  font-size: 2rem;
+}

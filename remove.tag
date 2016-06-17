@@ -22,7 +22,7 @@
         <ul class="mdl-list" name="tile-server-remove-list" id="tile-server-remove-list">
           <li class="mdl-list__item" each="{ url in leafletUI.tileServer.servers }">
             <span class="mdl-list__item-primary-content">
-              <a href="#" onClick="leafletUI.removeTag.removeUrl(this);">
+              <a href="#" onClick="leafletUI.removeTag.removeUrl('{url}');">
                 <i class="material-icons mdl-list__item-icon">delete</i>
               </a>
               <span class="url">{url}</span>
@@ -39,8 +39,8 @@
   <script type="text/javascript">
     leafletUI.removeTag = leafletUI.removeTag || {}
     leafletUI.removeTag.update = this.update;
-    leafletUI.removeTag.removeUrl = function (a) {
-      removeTileServer(a.parentElement.querySelector(".url").innerText);
+    leafletUI.removeTag.removeUrl = function (url) {
+      removeTileServer(url);
       leafletUI.removeTag.update();
     };
 

@@ -100,8 +100,8 @@ var changeTileServer = function(url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-riot.compile(function() {
   riot.mount('change');
   riot.mount('remove');
   riot.mount('add');
+riot.compile(function() {
 });

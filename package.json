@@ -28,6 +28,7 @@
     "gulp-useref": "^3.0.0",
     "leaflet": "^0.7",
     "material-design-lite": "^1.1",
-    "riot": "^2.3"
+    "riot": "^2.3",
+    "uglify-js-harmony": "^2.6.2"
   }
 }

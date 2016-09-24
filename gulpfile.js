@@ -9,19 +9,23 @@ var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
 var license = require('gulp-license');
 var riot = require('gulp-riot');
-var uglify = require('gulp-uglify');
+var minifier = require('gulp-uglify/minifier');
+var uglify = require('uglify-js-harmony');
 var useref = require('gulp-useref');
 
 gulp.task('html', function() {
   var htmlFilter = filter('**/*.html');
-  var assets;
   return gulp.src(['src/index.html'])
     .pipe(useref())
-    .pipe(gIf(['*.js'], uglify({
-      preserveComments: 'license'
-    }))) // FIXME
+    .pipe(gIf(['*.js', '!*.min.js'], minifier({}, uglify))) // FIXME
     .pipe(htmlFilter)
-    .pipe(htmlmin())
+    .pipe(htmlmin({
+      removeComments: false,
+      collapseWhitespace: true,
+      removeRedundantAttributes: true,
+      removeEmptyAttributes: true,
+      minifyJS: uglify
+    }))
     .pipe(htmlFilter.restore())
     .pipe(gulp.dest('dist'));
 });
@@ -34,6 +38,7 @@ gulp.task('riot-tag', ['html'], function() {
   return gulp.src('src/tags/*.tag')
     .pipe(concat('tags.js'))
     .pipe(riot())
+    .pipe(minifier({}, uglify))
     .pipe(license('agpl3', {
       tiny: false,
       project: 'docker-registry-ui',
@@ -46,7 +51,7 @@ gulp.task('riot-tag', ['html'], function() {
 gulp.task('scripts', ['html'], function() {
   return gulp.src(['src/scripts/script.js','src/scripts/control-*.js'])
     .pipe(concat('script.js'))
-    .pipe(uglify())
+    .pipe(minifier({}, uglify))
     .pipe(license('agpl3', {
       tiny: false,
       project: 'tile-server-ui',

@@ -33,18 +33,18 @@
 
 <body>
   <div class="mdl-layout mdl-js-layout">
-    <add></add>
-    <change></change>
-    <remove></remove>
+    <app></app>
     <main id="map" class="mdl-layout__content"> </main>
   </div>
   <!-- build:js scripts/vendor.js -->
   <script src="../node_modules/riot/riot+compiler.min.js"></script>
+  <script src="../node_modules/riotgear-router/dist/rg-router.min.js"></script>
   <script src="../node_modules/dialog-polyfill/dialog-polyfill.js"></script>
   <script src="../node_modules/material-design-lite/dist/material.min.js"></script>
   <script src="../node_modules/leaflet/dist/leaflet.js"></script>
   <!-- endbuild -->
   <!-- build:js scripts/tags.js -->
+  <script type="riot/tag" src="tags/app.tag"></script>
   <script type="riot/tag" src="tags/change.tag"></script>
   <script type="riot/tag" src="tags/remove.tag"></script>
   <script type="riot/tag" src="tags/add.tag"></script>

@@ -68,3 +68,7 @@ html, body, #map {
 .mdl-dialog__title {
   font-size: 2rem;
 }
+
+#add-tile-server-button {
+  background: #ff4081;
+}

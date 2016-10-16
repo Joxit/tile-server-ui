@@ -23,7 +23,11 @@ leafletUI.control.menu = L.Control.extend({
   onAdd: function(map) {
     var container = L.DomUtil.create('div', 'menu-control');
     var self = this;
-    var menu = L.DomUtil.create('button', 'mdl-button mdl-js-button mdl-button--icon', container);
+    var menu = L.DomUtil.create('material-button', '', container);
+    menu.setAttribute('waves-center', true);
+    menu.setAttribute('rounded', true);
+    menu.setAttribute('waves-opacity', 0.6);
+    menu.setAttribute('waves-duration', 600);
     menu.id = 'menu-control-button';
     L.DomUtil.create('i', 'material-icons', menu).innerHTML = 'more_vert';
     L.DomEvent.disableClickPropagation(menu);

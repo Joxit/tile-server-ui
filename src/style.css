@@ -75,3 +75,12 @@ html, body, #map {
 #add-tile-server-button {
   background: #ff4081;
 }
+
+#menu-control-button {
+  background: rgba(255,255,255,0);
+}
+
+#menu-control-button i {
+  color: #000;
+  font-size: 24px;
+}

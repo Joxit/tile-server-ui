@@ -101,5 +101,6 @@ var changeTileServer = function(url) {
 }
 
 riot.mount('app');
+riot.mount('material-button');
 riot.compile(function() {
 });

@@ -16,6 +16,7 @@
  */
 
 html, body, #map {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -37,15 +38,17 @@ html, body, #map {
   display: block;
 }
 
-.zoom-control button {
+.zoom-control material-button {
   display: block;
   text-align: center;
   text-decoration: none;
 }
 
 .zoom-control-button {
+  background: #3f51b5;
   min-width: 0px;
   width: 32px;
+  height: 36px;
   padding: 0;
   justify-content: center;
   align-items: center;
@@ -55,12 +58,12 @@ html, body, #map {
   border-radius: 0;
 }
 
-.zoom-control button:first-child {
+.zoom-control material-button:first-child {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
 }
 
-.zoom-control button:last-child {
+.zoom-control material-button:last-child {
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
 }

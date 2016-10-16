@@ -29,11 +29,11 @@ leafletUI.control.add = L.Control.extend({
     button.setAttribute('rounded', true);
     button.setAttribute('waves-opacity', 0.6);
     button.setAttribute('waves-duration', 600);
+    button.setAttribute('shady', true);
 
     button.addEventListener('click', function() {
       leafletUI.addTag.dialog.showModal();
     });
-    riot.mount('material-button');
     return button;
   }
 });

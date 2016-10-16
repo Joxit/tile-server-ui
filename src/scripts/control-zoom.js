@@ -36,8 +36,9 @@ leafletUI.control.zoom = L.Control.extend({
     var container = L.DomUtil.create('div', 'zoom-control');
     var self = this;
     var createButton = function(opts, callback) {
-      var button = L.DomUtil.create('button',
-        'mdl-button mdl-js-button mdl-button--raised mdl-button--colored zoom-control-button', container);
+      var button = L.DomUtil.create('material-button',
+        'zoom-control-button', container);
+      button.setAttribute('shady', true);
       button.innerHTML = opts.text;
       button.title = opts.title;
       if (callback) {

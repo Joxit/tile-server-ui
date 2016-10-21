@@ -78,9 +78,35 @@ html, body, #map {
 
 #menu-control-button {
   background: rgba(255,255,255,0);
+  float: right;
 }
 
 #menu-control-button i {
   color: #000;
   font-size: 24px;
+}
+
+#menu-control-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown {
+  min-width: 124px;
+  padding: 8px 0;
+  margin: 0;
+}
+
+dropdown-item, #menu-control-dropdown p {
+  padding: 0 16px;
+  margin: auto;
+  line-height: 48px;
+  height: 48px;
+}
+
+#menu-control-dropdown p:hover {
+    background-color: #eee;
+}
+#menu-control-dropdown p:active {
+  background-color: #e0e0e0;
 }

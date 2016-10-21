@@ -21,31 +21,7 @@ leafletUI.control.menu = L.Control.extend({
   },
 
   onAdd: function(map) {
-    var container = L.DomUtil.create('div', 'menu-control');
-    var self = this;
-    var menu = L.DomUtil.create('material-button', '', container);
-    menu.setAttribute('waves-center', true);
-    menu.setAttribute('rounded', true);
-    menu.setAttribute('waves-opacity', 0.6);
-    menu.setAttribute('waves-duration', 600);
-    menu.id = 'menu-control-button';
-    L.DomUtil.create('i', 'material-icons', menu).innerHTML = 'more_vert';
-    L.DomEvent.disableClickPropagation(menu);
-    var ul = L.DomUtil.create('ul', 'mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect', container);
-    ul.setAttribute('for', 'menu-control-button');
-    var addItem = function(id, innerHTML, callback) {
-      var item = L.DomUtil.create('li', 'mdl-menu__item', ul);
-      item.id = id;
-      item.innerHTML = innerHTML;
-      item.onclick = callback;
-    };
-    addItem('change-tile-server-button', 'Change url', function() {
-      leafletUI.changeTag.show();
-    });
-    addItem('remove-tile-server-button', 'Remove url', function() {
-      leafletUI.removeTag.show();
-    });
-    return container;
+    return L.DomUtil.create('dropdown-menu', 'menu-control');
   },
 
 });

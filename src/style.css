@@ -115,3 +115,8 @@ dropdown-item, #menu-control-dropdown p {
 .popup {
   max-width: 450px;
 }
+
+.dialog-button {
+  background: rgba(255,255,255,0.2);
+  color: #000;
+}

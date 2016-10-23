@@ -22,9 +22,9 @@
       <span for="tile-server-link">Use leaflet notation eg: http://url/\{z\}/\{x\}/\{y\}.png</span>
     </div>
     <div class="material-popup-action">
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.add();">Add</button>
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.addAndSet();">Set</button>
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.dialog.close();">Cancel</button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.add();">Add</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.addAndSet();">Set</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.dialog.close();">Cancel</material-button>
     </div>
   </material-popup>
 

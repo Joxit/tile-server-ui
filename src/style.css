@@ -105,8 +105,13 @@ dropdown-item, #menu-control-dropdown p {
 }
 
 #menu-control-dropdown p:hover {
-    background-color: #eee;
+  background-color: #eee;
 }
+
 #menu-control-dropdown p:active {
   background-color: #e0e0e0;
+}
+
+.popup {
+  max-width: 450px;
 }

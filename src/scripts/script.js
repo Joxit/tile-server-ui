@@ -101,6 +101,7 @@ var changeTileServer = function(url) {
 }
 
 riot.mount('app');
+riot.mount('material-popup');
 riot.mount('material-button');
 riot.mount('dropdown-menu');
 

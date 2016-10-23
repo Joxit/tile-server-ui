@@ -32,7 +32,7 @@ leafletUI.control.add = L.Control.extend({
     button.setAttribute('shady', true);
 
     button.addEventListener('click', function() {
-      leafletUI.addTag.dialog.showModal();
+      leafletUI.addTag.dialog.open();
     });
     return button;
   }

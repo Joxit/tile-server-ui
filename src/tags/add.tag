@@ -34,6 +34,9 @@
     leafletUI.addTag.add = function () {
       if (leafletUI.addTag.tileServerList.value && leafletUI.addTag.tileServerList.value.length > 0) {
         addTileServer(leafletUI.addTag.tileServerList.value);
+        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been added.', false);
+      } else {
+        leafletUI.snackbar('Nothing to add.', false);
       }
       leafletUI.addTag.tileServerList.value = '';
       leafletUI.addTag.dialog.close();
@@ -43,6 +46,9 @@
         addTileServer(leafletUI.addTag.tileServerList.value);
         changeTileServer(leafletUI.addTag.tileServerList.value);
         leafletUI.tileServer.layer.setUrl(leafletUI.addTag.tileServerList.value);
+        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been setted.', false);
+      } else {
+        leafletUI.snackbar('Nothing to set.', false);
       }
       leafletUI.addTag.tileServerList.value = '';
       leafletUI.addTag.dialog.close();

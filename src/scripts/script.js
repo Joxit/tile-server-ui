@@ -104,5 +104,6 @@ riot.mount('app');
 riot.mount('material-popup');
 riot.mount('material-button');
 riot.mount('dropdown-menu');
+riot.mount('material-snackbar');
 
 riot.compile(function() {});

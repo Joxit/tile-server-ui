@@ -18,6 +18,7 @@
   <add></add>
   <change></change>
   <remove></remove>
+  <material-snackbar name='snackbar'></material-snackbar>
   <script>
     this.mixin('rg.router');
     this.router.add({name: 'home', url: '/:z/:lat/:lng'});
@@ -44,6 +45,10 @@
       center.z = leafletUI.map.getZoom();
       rg.router.go('home', center);
     });
+    var tags = this.tags;
+    leafletUI.snackbar = function (message, isError) {
+      tags['snackbar'].addToast({'message': message, 'isError': isError});
+    };
     this.router.start();
   </script>
 </app>

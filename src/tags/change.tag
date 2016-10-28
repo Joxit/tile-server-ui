@@ -15,8 +15,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <change>
-  <dialog id="change-tile-server-dialog" class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Change your Tile Server ?</h4>
+  <material-popup name="change-tile-server-dialog">
+    <div class="material-popup-title">Change your Tile Server ?</div>
     <div class="mdl-dialog__content">
       <div class="mdl-textfield mdl-js-textfield">
         <select class="mdl-textfield__input mdl-textfield__select" name="tile-server-list" id="tile-server-list">
@@ -24,12 +24,12 @@
         </select>
       </div>
     </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button change" onClick="leafletUI.changeTag.change();">Change</button>
-      <button type="button" class="mdl-button overlay" onClick="leafletUI.changeTag.overlay();">Overlay</button>
-      <button type="button" class="mdl-button close" onClick="leafletUI.changeTag.close();">Cancel</button>
+    <div class="material-popup-action">
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.changeTag.change();">Change</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.changeTag.overlay();">Overlay</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.changeTag.close();">Cancel</material-button>
     </div>
-  </dialog>
+  </material-popup>
   <script type="text/javascript">
   leafletUI.changeTag = leafletUI.changeTag || {};
     leafletUI.changeTag.update = this.update;
@@ -54,15 +54,11 @@
       if (leafletUI.changeTag.tileServerList) {
         leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();
       }
-      leafletUI.changeTag.dialog.showModal();
+      leafletUI.changeTag.dialog.open();
     };
     this.on('updated', function () {
-      leafletUI.changeTag.dialog = this['change-tile-server-dialog'];
-      leafletUI.changeTag.tileServerList = this['tile-server-list'];
-      componentHandler.upgradeElements(leafletUI.changeTag.dialog);
-      if (!leafletUI.changeTag.dialog.showModal) {
-        dialogPolyfill.registerDialog(leafletUI.changeTag.dialog);
-      }
+      leafletUI.changeTag.dialog = this.tags['change-tile-server-dialog'];
+      leafletUI.changeTag.tileServerList = leafletUI.changeTag.dialog['tile-server-list'];
     });
   </script>
 </change>

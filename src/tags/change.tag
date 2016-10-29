@@ -17,9 +17,9 @@
 <change>
   <material-popup name="change-tile-server-dialog">
     <div class="material-popup-title">Change your Tile Server ?</div>
-    <div class="mdl-dialog__content">
-      <div class="mdl-textfield mdl-js-textfield">
-        <select class="mdl-textfield__input mdl-textfield__select" name="tile-server-list" id="tile-server-list">
+    <div class="material-popup-content">
+      <div class="select-padding">
+        <select name="tile-server-list" id="tile-server-list">
           <option each="{ url in leafletUI.tileServer.servers }" value={url}>{url}</option>
         </select>
       </div>
@@ -31,25 +31,25 @@
     </div>
   </material-popup>
   <script type="text/javascript">
-  leafletUI.changeTag = leafletUI.changeTag || {};
+    leafletUI.changeTag = leafletUI.changeTag || {};
     leafletUI.changeTag.update = this.update;
-    leafletUI.changeTag.close = function() {
+    leafletUI.changeTag.close = function () {
       leafletUI.changeTag.dialog.close();
       leafletUI.changeTag.update();
     };
-    leafletUI.changeTag.change = function() {
+    leafletUI.changeTag.change = function () {
       var url = leafletUI.changeTag.tileServerList.value;
       changeTileServer(url);
       leafletUI.tileServer.layer.setUrl(url);
       leafletUI.changeTag.close();
     };
-    leafletUI.changeTag.overlay = function() {
+    leafletUI.changeTag.overlay = function () {
       var url = leafletUI.changeTag.tileServerList.value;
       localStorage.setItem('tileServerOverlay', JSON.stringify(url));
       leafletUI.tileServer.overlay.setUrl(url);
       leafletUI.changeTag.close();
     }
-    leafletUI.changeTag.show = function() {
+    leafletUI.changeTag.show = function () {
       leafletUI.changeTag.update();
       if (leafletUI.changeTag.tileServerList) {
         leafletUI.changeTag.tileServerList.value = leafletUI.tileServer.url();

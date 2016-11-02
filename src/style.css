@@ -105,6 +105,10 @@ dropdown-item, #menu-control-dropdown p {
   cursor: pointer;
 }
 
+.selectable {
+  cursor: pointer;
+}
+
 #menu-control-dropdown p:hover, material-button:hover {
   background-color: #eee;
 }
@@ -141,4 +145,35 @@ select {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+}
+
+ul {
+  display: block;
+  padding: 8px 0;
+  list-style: none;
+}
+ul>li {
+  box-sizing: border-box;
+  line-height: 1;
+  min-height: 48px;
+  padding: 16px;
+  overflow: hidden;
+}
+ul>li i.material-icons {
+  margin-right: 32px;
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
+  box-sizing: border-box;
+  color: #757575;
+}
+ul>li>span {
+  text-decoration: none;
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }

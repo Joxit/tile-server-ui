@@ -18,11 +18,11 @@
   <material-popup name="remove-tile-server-dialog">
     <div class="material-popup-title">Remove your Tile Server ?</div>
     <div class="material-popup-content">
-      <ul class="mdl-list" name="tile-server-remove-list" id="tile-server-remove-list">
-        <li class="mdl-list__item" each="{ url in leafletUI.tileServer.servers }">
-          <span class="mdl-list__item-primary-content">
-            <a href="#" onClick="leafletUI.removeTag.removeUrl('{ btoa(url) }');">
-              <i class="material-icons mdl-list__item-icon">delete</i>
+      <ul>
+        <li each="{ url in leafletUI.tileServer.servers }">
+          <span>
+            <a href="#" class="selectable" onClick="leafletUI.removeTag.removeUrl('{ btoa(url) }');">
+              <i class="material-icons">delete</i>
             </a>
             <span class="url">{url}</span>
           </span>
@@ -51,9 +51,6 @@
 
     leafletUI.removeTag.show = function () {
       leafletUI.removeTag.update();
-      if (leafletUI.removeTag.tileServerList) {
-        leafletUI.removeTag.tileServerList.value = leafletUI.tileServer.url();
-      }
       leafletUI.removeTag.dialog.open();
     };
 
@@ -64,7 +61,6 @@
 
     this.on('updated', function () {
       leafletUI.removeTag.dialog = this.tags['remove-tile-server-dialog'];
-      leafletUI.removeTag.tileServerList = this['tile-server-remove-list'];
     });
   </script>
 </remove>

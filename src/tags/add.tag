@@ -17,7 +17,7 @@
 <add>
   <material-popup name="add-tile-server-dialog">
     <div class="material-popup-title">Add a new Tile Server to your list ?</div>
-    <div class="mdl-dialog__content">
+    <div class="material-popup-content">
       <material-input name="tile-server-link" placeholder="Tile Server URL"></material-input>
       <span for="tile-server-link">Use leaflet notation eg: http://url/\{z\}/\{x\}/\{y\}.png</span>
     </div>

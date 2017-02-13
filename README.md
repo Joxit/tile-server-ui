@@ -46,7 +46,7 @@ docker pull joxit/tile-server-ui
 ```
 
 #### Run the docker
-To run the docker and see the website on your 8080 port, try this :
+To run the docker and see the website on your 80 port, try this :
 ```sh
-docker run -d -p 8080:8080 joxit/tile-server-ui
+docker run -d -p 80:80 joxit/tile-server-ui
 ```

@@ -39,8 +39,14 @@ leafletUI.tileServer.url = function() {
 }
 
 leafletUI.tileServer.overlayUrl = function() {
-  return JSON.parse(localStorage.getItem('tileServerOverlay')) || '';
-}
+  var res = localStorage.getItem('tileServerOverlay');
+  if ((res instanceof String || typeof res === 'string') && res.match(/^https?:\/\//)) {
+    return res;
+  } else {
+    localStorage.setItem('tileServerOverlay', '');
+    return '';
+  }
+};
 
 leafletUI.tileServer.opts = {
   attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',

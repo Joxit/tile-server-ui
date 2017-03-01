@@ -107,5 +107,9 @@ var changeTileServer = function(url) {
 }
 
 riot.mount('app');
-riot.compile(function() {
-});
+riot.mount('material-popup');
+riot.mount('material-button');
+riot.mount('dropdown-menu');
+riot.mount('material-snackbar');
+
+riot.compile(function() {});

@@ -22,13 +22,17 @@ leafletUI.control.add = L.Control.extend({
   },
 
   onAdd: function(map) {
-    var button = L.DomUtil.create('button',
-      'mdl-button mdl-js-button mdl-button--fab mdl-button--colored');
+    var button = L.DomUtil.create('material-button');
     L.DomUtil.create('i', 'material-icons', button).textContent = 'add';
     button.id = 'add-tile-server-button'
+    button.setAttribute('waves-center', true);
+    button.setAttribute('rounded', true);
+    button.setAttribute('waves-opacity', 0.6);
+    button.setAttribute('waves-duration', 600);
+    button.setAttribute('shady', true);
 
     button.addEventListener('click', function() {
-      leafletUI.addTag.dialog.showModal();
+      leafletUI.addTag.dialog.open();
     });
     return button;
   }

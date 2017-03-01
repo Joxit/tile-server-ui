@@ -15,21 +15,18 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <add>
-  <dialog id="add-tile-server-dialog" class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Add a new Tile Server to your list ?</h4>
-    <div class="mdl-dialog__content">
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="tile-server-link">
-        <label class="mdl-textfield__label" for="tile-server-link">Tile Server URL</label>
-      </div>
+  <material-popup name="add-tile-server-dialog">
+    <div class="material-popup-title">Add a new Tile Server to your list ?</div>
+    <div class="material-popup-content">
+      <material-input name="tile-server-link" placeholder="Tile Server URL"></material-input>
       <span for="tile-server-link">Use leaflet notation eg: http://url/\{z\}/\{x\}/\{y\}.png</span>
     </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.add();">Add</button>
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.addAndSet();">Set</button>
-      <button type="button" class="mdl-button" onclick="leafletUI.addTag.dialog.close();">Cancel</button>
+    <div class="material-popup-action">
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.add();">Add</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.addAndSet();">Set</material-button>
+      <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.addTag.dialog.close();">Cancel</material-button>
     </div>
-  </dialog>
+  </material-popup>
 
   <script type="text/javascript">
     leafletUI.addTag = leafletUI.addTag || {};
@@ -37,6 +34,9 @@
     leafletUI.addTag.add = function () {
       if (leafletUI.addTag.tileServerList.value && leafletUI.addTag.tileServerList.value.length > 0) {
         addTileServer(leafletUI.addTag.tileServerList.value);
+        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been added.', false);
+      } else {
+        leafletUI.snackbar('Nothing to add.', false);
       }
       leafletUI.addTag.tileServerList.value = '';
       leafletUI.addTag.dialog.close();
@@ -46,17 +46,16 @@
         addTileServer(leafletUI.addTag.tileServerList.value);
         changeTileServer(leafletUI.addTag.tileServerList.value);
         leafletUI.tileServer.layer.setUrl(leafletUI.addTag.tileServerList.value);
+        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been setted.', false);
+      } else {
+        leafletUI.snackbar('Nothing to set.', false);
       }
       leafletUI.addTag.tileServerList.value = '';
       leafletUI.addTag.dialog.close();
     };
     this.on('updated', function () {
-      leafletUI.addTag.dialog = this['add-tile-server-dialog'];
-      leafletUI.addTag.tileServerList = this['tile-server-link'];
-      componentHandler.upgradeElements(leafletUI.addTag.dialog);
-      if (!leafletUI.addTag.dialog.showModal) {
-        dialogPolyfill.registerDialog(leafletUI.addTag.dialog);
-      }
+      leafletUI.addTag.dialog = this.tags['add-tile-server-dialog'];
+      leafletUI.addTag.tileServerList = leafletUI.addTag.dialog.tags['tile-server-link'];
     });
   </script>
 </add>

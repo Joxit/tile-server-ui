@@ -106,10 +106,6 @@ var changeTileServer = function(url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
-riot.mount('app');
-riot.mount('material-popup');
-riot.mount('material-button');
-riot.mount('dropdown-menu');
-riot.mount('material-snackbar');
+riot.mount('*');
 
 riot.compile(function() {});

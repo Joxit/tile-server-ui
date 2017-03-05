@@ -18,7 +18,7 @@ var leafletUI = {};
 
 leafletUI.map = L.map('map', {
   zoomControl: false
-}).setView([48.8552168, 2.3482104], 13);
+});
 
 leafletUI.tileServer = {};
 leafletUI.tileServer.getServers = function(i) {
@@ -108,4 +108,8 @@ var changeTileServer = function(url) {
 
 riot.mount('*');
 
-riot.compile(function() {});
+riot.compile(function() {
+  this.onload = function () {
+    riot.mount('*');
+  }
+});

@@ -114,8 +114,9 @@ material-popup material-button:hover material-waves {
   background-color: hsla(0,0%,75%,.2);
 }
 
-.popup {
+material-popup .popup {
   max-width: 450px;
+  z-index: 1000;
 }
 
 .dialog-button {

@@ -14,7 +14,7 @@ var uglify = require('uglify-js-harmony');
 var useref = require('gulp-useref');
 
 gulp.task('html', function() {
-  var htmlFilter = filter('**/*.html');
+  var htmlFilter = filter('**/*.html', {restore: true});
   return gulp.src(['src/index.html'])
     .pipe(useref())
     .pipe(gIf(['*.js', '!*.min.js'], minifier({}, uglify))) // FIXME
@@ -26,7 +26,7 @@ gulp.task('html', function() {
       removeEmptyAttributes: true,
       minifyJS: uglify
     }))
-    .pipe(htmlFilter.restore())
+    .pipe(htmlFilter.restore)
     .pipe(gulp.dest('dist'));
 });
 
@@ -41,7 +41,7 @@ gulp.task('riot-tag', ['html'], function() {
     .pipe(minifier({}, uglify))
     .pipe(license('agpl3', {
       tiny: false,
-      project: 'docker-registry-ui',
+      project: 'tile-server-ui',
       year: '2016',
       organization: 'Jones Magloire @Joxit'
     }))
@@ -69,7 +69,7 @@ gulp.task('styles', ['html'], function() {
     }))
     .pipe(license('agpl3', {
       tiny: false,
-      project: 'docker-registry-ui',
+      project: 'tile-server-ui',
       year: '2016',
       organization: 'Jones Magloire @Joxit'
     }))
@@ -86,6 +86,4 @@ gulp.task('sources', ['riot-tag', 'scripts', 'styles'], function() {
   gulp.start();
 });
 
-gulp.task('build', ['clean'], function() {
-  gulp.start(['sources', 'fonts']);
-});
+gulp.task('build', ['clean', 'sources', 'fonts']);

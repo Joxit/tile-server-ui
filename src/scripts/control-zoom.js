@@ -77,7 +77,7 @@ leafletUI.control.zoom = L.Control.extend({
       this._zoomInButton.setAttribute('disabled', '');
     }
 
-    this._zoomButton.innerHTML = leafletUI.map._zoom;
+    this._zoomButton.innerHTML = leafletUI.map._zoom || 0;
   }
 });
 

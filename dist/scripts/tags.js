@@ -1,5 +1,5 @@
 /*!
- * docker-registry-ui
+ * tile-server-ui
  * Copyright (C) 2016  Jones Magloire @Joxit
  *
  * This program is free software: you can redistribute it and/or modify

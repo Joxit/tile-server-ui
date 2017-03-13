@@ -23,6 +23,8 @@
     this.mixin('rg.router');
     this.router.add({name: 'home', url: '/:z/:lat/:lng'});
     this.router.on('go', state => {
+      state = state || {};
+      state.params = state.params || {};
       switch (state.name) {
         case 'home':
           {
@@ -40,6 +42,12 @@
           break;
       }
     });
+    this.router.on('start', function() {
+      if(!this.current) {
+        this.go('home');
+      }
+    });
+
     leafletUI.map.on('moveend tilelayersload', function () {
       var center = leafletUI.map.getCenter();
       center.z = leafletUI.map.getZoom();

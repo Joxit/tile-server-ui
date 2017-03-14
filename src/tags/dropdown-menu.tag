@@ -22,6 +22,7 @@
     <material-dropdown id="menu-control-dropdown" name="menu-control-dropdown" for="menu-control-button">
       <p onclick="leafletUI.menuTag.onChangeClick();">Change url</p>
       <p onclick="leafletUI.menuTag.onRemoveClick();">Remove url</p>
+      <p onclick="leafletUI.menuTag.onTileBoundClick();">Tile Bound</p>
     </material-dropdown>
   </div>
   <script type="text/javascript">
@@ -34,6 +35,10 @@
     }
     leafletUI.menuTag.onRemoveClick = function (){
       leafletUI.removeTag.show();
+      self.tags['menu-control-dropdown'].close();
+    }
+    leafletUI.menuTag.onTileBoundClick = function (){
+      leafletUI.tileBoundTag.show();
       self.tags['menu-control-dropdown'].close();
     }
     this.on('update', function() {

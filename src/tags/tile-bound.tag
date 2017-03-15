@@ -21,6 +21,11 @@
       <material-checkbox name="check-box" onClick="leafletUI.tileBoundTag.toggleBounds();">
         Show tiles bounds.
       </material-checkbox>
+      <div class="meta-tile-line">
+        <material-checkbox name="meta-check-box" onClick="leafletUI.tileBoundTag.toggleMetaBounds();">
+        </material-checkbox>
+        <material-input name="meta-tile-size" valid="/^\d*$/" label="Meta Tiles size"></material-input>
+      </div>
     </div>
     <div class="material-popup-action">
       <material-button class="dialog-button" waves-color="rgba(158,158,158,.4)" onclick="leafletUI.tileBoundTag.dialog.close();">Close</material-button>
@@ -38,6 +43,13 @@
         leafletUI.tileBoundTag.tileBoundGridLayer.remove();
       }
     };
+    leafletUI.tileBoundTag.toggleMetaBounds = function () {
+      if (leafletUI.tileBoundTag.metaCheckBox.checked) {
+        leafletUI.tileBoundTag.metaTileBoundGridLayer.addTo(leafletUI.map);
+      } else {
+        leafletUI.tileBoundTag.metaTileBoundGridLayer.remove();
+      }
+    };
     leafletUI.tileBoundTag.show = function () {
       leafletUI.tileBoundTag.update();
       leafletUI.tileBoundTag.dialog.open();
@@ -45,23 +57,62 @@
 
     leafletUI.tileBoundTag.TileBoundGridLayer = L.GridLayer.extend({
       createTile:function (coords) {
-          var tile =  L.DomUtil.create('div', 'tile-bound')
+          var tile =  L.DomUtil.create('div', 'tile-bound');
           tile.innerHTML = 'x:' + coords.x + '<br \\>y:' + coords.y + '<br \\>z:' + coords.z;
-          var metaBorder = '1px solid #444';
-          if (coords.x % 8 == 0) {
-
-          }
           tile.style['border'] = '1px dashed #444';
           tile.style['box-shadow'] = '0 0 1px #fff';
           return tile;
         }
     });
 
+    leafletUI.tileBoundTag.MetaTileBoundGridLayer = L.GridLayer.extend({
+      createTile:function (coords) {
+          if (!leafletUI.tileBoundTag.metaTileSize.value || isNaN(leafletUI.tileBoundTag.metaTileSize.value.length)) {
+            return L.DomUtil.create('div', 'meta-tile-bound');
+          }
+          var metaTileSize = leafletUI.tileBoundTag.metaTileSize.value;
+          var borderStyle = '2px dotted #a44'
+          var tile =  L.DomUtil.create('div', 'meta-tile-bound');
+          if (coords.x % metaTileSize == 0) {
+            tile.style['border-left'] = borderStyle;
+          }
+          if (coords.x % metaTileSize == (metaTileSize - 1)) {
+            tile.style['border-right'] = borderStyle;
+          }
+          if (coords.y % metaTileSize == 0) {
+            tile.style['border-top'] = borderStyle;
+          }
+          if (coords.y % metaTileSize == (metaTileSize - 1)) {
+            tile.style['border-bottom'] = borderStyle;
+          }
+          return tile;
+        }
+    });
+
     leafletUI.tileBoundTag.tileBoundGridLayer = new leafletUI.tileBoundTag.TileBoundGridLayer(leafletUI.map);
+    leafletUI.tileBoundTag.metaTileBoundGridLayer = new leafletUI.tileBoundTag.MetaTileBoundGridLayer(leafletUI.map);
     this.on('updated', function () {
       leafletUI.tileBoundTag.dialog = this.tags['tile-bound-dialog'];
       leafletUI.tileBoundTag.checkBox = leafletUI.tileBoundTag.dialog.tags['check-box'];
-      console.log(this)
+      leafletUI.tileBoundTag.metaCheckBox = leafletUI.tileBoundTag.dialog.tags['meta-check-box'];
+      leafletUI.tileBoundTag.metaTileSize = leafletUI.tileBoundTag.dialog.tags['meta-tile-size'];
+      leafletUI.tileBoundTag.dialog['meta-tile-size'].onkeypress = function (event) {
+        if (event.key !== 'Enter') {
+          return;
+        }
+        if(!leafletUI.tileBoundTag.metaCheckBox.checked) {
+          leafletUI.tileBoundTag.metaCheckBox.checked = true;
+          leafletUI.tileBoundTag.metaCheckBox.update();
+          leafletUI.tileBoundTag.toggleMetaBounds();
+        } else {
+          leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
+        }
+      }
+      leafletUI.tileBoundTag.dialog['meta-tile-size'].onchange = function () {
+        if(leafletUI.tileBoundTag.metaCheckBox.checked) {
+          leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
+        }
+      }
     });
   </script>
 </tile-bound>

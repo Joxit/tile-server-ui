@@ -189,3 +189,11 @@ div .tile-bound {
   text-align: center;
   text-shadow: 0 0 4px #fff;
 }
+
+.meta-tile-line {
+  display: inline-flex;
+}
+
+.meta-tile-line material-checkbox {
+  margin: auto;
+}

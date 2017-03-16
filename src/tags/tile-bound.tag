@@ -42,6 +42,7 @@
       } else {
         leafletUI.tileBoundTag.tileBoundGridLayer.remove();
       }
+      localStorage.setItem('tileBounds', leafletUI.tileBoundTag.checkBox.checked);
     };
     leafletUI.tileBoundTag.toggleMetaBounds = function () {
       if (leafletUI.tileBoundTag.metaCheckBox.checked) {
@@ -49,6 +50,7 @@
       } else {
         leafletUI.tileBoundTag.metaTileBoundGridLayer.remove();
       }
+      localStorage.setItem('metaTileBounds', leafletUI.tileBoundTag.metaCheckBox.checked);
     };
     leafletUI.tileBoundTag.show = function () {
       leafletUI.tileBoundTag.update();
@@ -107,11 +109,26 @@
         } else {
           leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
         }
-      }
+      };
       leafletUI.tileBoundTag.dialog['meta-tile-size'].onchange = function () {
         if(leafletUI.tileBoundTag.metaCheckBox.checked) {
           leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
         }
+        localStorage.setItem('metaTileSize', leafletUI.tileBoundTag.metaTileSize.value);
+      };
+      var tileBounds = localStorage.getItem('tileBounds');
+      if (tileBounds == 'true') {
+        leafletUI.tileBoundTag.checkBox.checked = true;
+        leafletUI.tileBoundTag.toggleBounds();
+      }
+      var metaTileSize = localStorage.getItem('metaTileSize');
+      if (!isNaN(metaTileSize)) {
+        leafletUI.tileBoundTag.metaTileSize.value = metaTileSize;
+      }
+      var metaTileBounds = localStorage.getItem('metaTileBounds');
+      if (metaTileBounds == 'true') {
+        leafletUI.tileBoundTag.metaCheckBox.checked = true;
+        leafletUI.tileBoundTag.toggleMetaBounds();
       }
     });
   </script>

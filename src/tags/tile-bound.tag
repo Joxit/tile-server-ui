@@ -18,10 +18,10 @@
   <material-popup name="tile-bound-dialog">
     <div class="material-popup-title">Show/hide tiles bounds ?</div>
     <div class="material-popup-content">
-      <material-checkbox name="check-box" onClick="leafletUI.tileBoundTag.toggleBounds();">
+      <material-checkbox class="margin-8" name="check-box" onClick="leafletUI.tileBoundTag.toggleBounds();">
         Show tiles bounds.
       </material-checkbox>
-      <div class="meta-tile-line">
+      <div class="on-line margin-8">
         <material-checkbox name="meta-check-box" onClick="leafletUI.tileBoundTag.toggleMetaBounds();">
         </material-checkbox>
         <material-input name="meta-tile-size" valid="/^\d*$/" label="Meta Tiles size"></material-input>

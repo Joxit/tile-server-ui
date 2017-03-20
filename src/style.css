@@ -184,3 +184,20 @@ main {
   font-size: 2rem;
   line-height: 0.75;
 }
+div .tile-bound {
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 4px #fff;
+}
+
+.on-line {
+  display: inline-flex;
+}
+
+.on-line material-checkbox {
+  margin: auto;
+}
+
+.margin-8 {
+  margin: 8px 0;
+}

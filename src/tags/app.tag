@@ -18,6 +18,7 @@
   <add></add>
   <change></change>
   <remove></remove>
+  <tile-bound></tile-bound>
   <material-snackbar name='snackbar'></material-snackbar>
   <script>
     this.mixin('rg.router');

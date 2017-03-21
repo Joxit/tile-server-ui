@@ -30,8 +30,8 @@ gulp.task('html', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function(done) {
-  del(['dist'], done);
+gulp.task('clean', function() {
+  del(['dist']);
 });
 
 gulp.task('riot-tag', ['html'], function() {

@@ -1,5 +1,5 @@
 <!--
- Copyright (C) 2016  Jones Magloire @Joxit
+ Copyright (C) 2016-2017  Jones Magloire @Joxit
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +38,10 @@
             var lng = isNaN(state.params.lng) || state.params.lng.length == 0
               ? 2.3482104
               : state.params.lng;
-            leafletUI.map.setView(L.latLng(lat, lng), z);
+              if(!this.isViewSetted) {
+                leafletUI.map.setView(L.latLng(lat, lng), z);
+                this.isViewSetted = true;
+              }
           }
           break;
       }

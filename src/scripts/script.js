@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016  Jones Magloire @Joxit
+ * Copyright (C) 2016-2017  Jones Magloire @Joxit
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -105,8 +105,6 @@ var changeTileServer = function(url) {
   leafletUI.tileServer.servers = tileServer;
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
-
-riot.mount('*');
 
 riot.compile(function() {
   this.onload = function () {

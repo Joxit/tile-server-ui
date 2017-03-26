@@ -1,5 +1,5 @@
 <!--
- Copyright (C) 2016  Jones Magloire @Joxit
+ Copyright (C) 2016-2017  Jones Magloire @Joxit
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -18,13 +18,13 @@
   <material-popup name="tile-bound-dialog">
     <div class="material-popup-title">Show/hide tiles bounds ?</div>
     <div class="material-popup-content">
-      <material-checkbox class="margin-8" name="check-box" onClick="leafletUI.tileBoundTag.toggleBounds();">
+      <material-checkbox class="margin-8" name="check-box">
         Show tiles bounds.
       </material-checkbox>
       <div class="on-line margin-8">
-        <material-checkbox name="meta-check-box" onClick="leafletUI.tileBoundTag.toggleMetaBounds();">
+        <material-checkbox name="meta-check-box">
         </material-checkbox>
-        <material-input name="meta-tile-size" valid="/^\d*$/" label="Meta Tiles size"></material-input>
+        <material-input name="meta-tile-size" value="{leafletUI.tileBoundTag.metaTileSize.value}" valid="/^\d*$/" label="Meta Tiles size"></material-input>
       </div>
     </div>
     <div class="material-popup-action">
@@ -36,21 +36,21 @@
     leafletUI.tileBoundTag = leafletUI.tileBoundTag || {};
     leafletUI.tileBoundTag.update = this.update;
 
-    leafletUI.tileBoundTag.toggleBounds = function () {
-      if (leafletUI.tileBoundTag.checkBox.checked) {
+    leafletUI.tileBoundTag.toggleBounds = function (checked) {
+      if (checked) {
         leafletUI.tileBoundTag.tileBoundGridLayer.addTo(leafletUI.map);
       } else {
         leafletUI.tileBoundTag.tileBoundGridLayer.remove();
       }
-      localStorage.setItem('tileBounds', leafletUI.tileBoundTag.checkBox.checked);
+      localStorage.setItem('tileBounds', checked);
     };
-    leafletUI.tileBoundTag.toggleMetaBounds = function () {
-      if (leafletUI.tileBoundTag.metaCheckBox.checked) {
+    leafletUI.tileBoundTag.toggleMetaBounds = function (checked) {
+      if (checked) {
         leafletUI.tileBoundTag.metaTileBoundGridLayer.addTo(leafletUI.map);
       } else {
         leafletUI.tileBoundTag.metaTileBoundGridLayer.remove();
       }
-      localStorage.setItem('metaTileBounds', leafletUI.tileBoundTag.metaCheckBox.checked);
+      localStorage.setItem('metaTileBounds', checked);
     };
     leafletUI.tileBoundTag.show = function () {
       leafletUI.tileBoundTag.update();
@@ -93,7 +93,7 @@
 
     leafletUI.tileBoundTag.tileBoundGridLayer = new leafletUI.tileBoundTag.TileBoundGridLayer(leafletUI.map);
     leafletUI.tileBoundTag.metaTileBoundGridLayer = new leafletUI.tileBoundTag.MetaTileBoundGridLayer(leafletUI.map);
-    this.on('updated', function () {
+    this.on('mount', function () {
       leafletUI.tileBoundTag.dialog = this.tags['tile-bound-dialog'];
       leafletUI.tileBoundTag.checkBox = leafletUI.tileBoundTag.dialog.tags['check-box'];
       leafletUI.tileBoundTag.metaCheckBox = leafletUI.tileBoundTag.dialog.tags['meta-check-box'];
@@ -105,31 +105,34 @@
         if(!leafletUI.tileBoundTag.metaCheckBox.checked) {
           leafletUI.tileBoundTag.metaCheckBox.checked = true;
           leafletUI.tileBoundTag.metaCheckBox.update();
-          leafletUI.tileBoundTag.toggleMetaBounds();
+          leafletUI.tileBoundTag.toggleMetaBounds(true);
         } else {
           leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
         }
       };
-      leafletUI.tileBoundTag.dialog['meta-tile-size'].onchange = function () {
-        if(leafletUI.tileBoundTag.metaCheckBox.checked) {
-          leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
-        }
-        localStorage.setItem('metaTileSize', leafletUI.tileBoundTag.metaTileSize.value);
-      };
       var tileBounds = localStorage.getItem('tileBounds');
       if (tileBounds == 'true') {
         leafletUI.tileBoundTag.checkBox.checked = true;
-        leafletUI.tileBoundTag.toggleBounds();
+        leafletUI.tileBoundTag.toggleBounds(true);
       }
       var metaTileSize = localStorage.getItem('metaTileSize');
       if (!isNaN(metaTileSize)) {
         leafletUI.tileBoundTag.metaTileSize.value = metaTileSize;
+        leafletUI.tileBoundTag.metaTileSize.update();
       }
       var metaTileBounds = localStorage.getItem('metaTileBounds');
       if (metaTileBounds == 'true') {
         leafletUI.tileBoundTag.metaCheckBox.checked = true;
-        leafletUI.tileBoundTag.toggleMetaBounds();
+        leafletUI.tileBoundTag.toggleMetaBounds(true);
       }
+      leafletUI.tileBoundTag.checkBox.on('toggle', leafletUI.tileBoundTag.toggleBounds);
+      leafletUI.tileBoundTag.metaCheckBox.on('toggle', leafletUI.tileBoundTag.toggleMetaBounds);
+      leafletUI.tileBoundTag.metaTileSize.on('valueChanged', function () {
+        if(leafletUI.tileBoundTag.metaCheckBox.checked) {
+          leafletUI.tileBoundTag.metaTileBoundGridLayer.redraw();
+        }
+        localStorage.setItem('metaTileSize', leafletUI.tileBoundTag.metaTileSize.value);
+      });
     });
   </script>
 </tile-bound>

@@ -1,4 +1,5 @@
 'use strict';
+var babel = require('gulp-babel');
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var del = require('del');
@@ -36,13 +37,14 @@ gulp.task('clean', function() {
 
 gulp.task('riot-tag', ['html'], function() {
   return gulp.src('src/tags/*.tag')
-    .pipe(concat('tags.js'))
     .pipe(riot())
+    .pipe(concat('tags.js'))
+    .pipe(babel({}))
     .pipe(minifier({}, uglify))
     .pipe(license('agpl3', {
       tiny: false,
       project: 'tile-server-ui',
-      year: '2016',
+      year: '2016-2017',
       organization: 'Jones Magloire @Joxit'
     }))
     .pipe(gulp.dest('dist/scripts'));
@@ -55,7 +57,7 @@ gulp.task('scripts', ['html'], function() {
     .pipe(license('agpl3', {
       tiny: false,
       project: 'tile-server-ui',
-      year: '2016',
+      year: '2016-2017',
       organization: 'Jones Magloire @Joxit'
     }))
     .pipe(gulp.dest('dist/scripts'));
@@ -70,7 +72,7 @@ gulp.task('styles', ['html'], function() {
     .pipe(license('agpl3', {
       tiny: false,
       project: 'tile-server-ui',
-      year: '2016',
+      year: '2016-2017',
       organization: 'Jones Magloire @Joxit'
     }))
     .pipe(gulp.dest('dist/'));
@@ -84,6 +86,13 @@ gulp.task('fonts', function() {
 
 gulp.task('sources', ['riot-tag', 'scripts', 'styles'], function() {
   gulp.start();
+});
+
+gulp.task('watch', function(){
+   gulp.watch('./src/tags/*.tag',['riot-tag']);
+   gulp.watch('./src/scripts/*.js',['scripts']);
+   gulp.watch('./src/*.css',['styles']);
+   gulp.watch('./src/*.html',['html']);
 });
 
 gulp.task('build', ['clean', 'sources', 'fonts']);

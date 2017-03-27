@@ -1,6 +1,6 @@
 {
   "name": "tile-server-ui",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js build",
     "watch": "./node_modules/gulp/bin/gulp.js watch"

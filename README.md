@@ -3,11 +3,21 @@
 ## Overview
 
 This project aims to provide a user interface for tile servers.
-There is no default tile-server on this UI, so you have to add your own according to the leaflet notation (e.g. `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`).
+The default tile-server is openstreetmap on this UI and you can add your own according to the leaflet notation (e.g. `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`).
 All tile servers will be stored in the [local storage](https://en.wikipedia.org/wiki/Web_storage#Local_and_session_storage) of your browser.
+This project uses [Riot](http://riotjs.com/), [riot-mui](http://kysonic.github.io/riot-mui/) and [leaflet](http://leafletjs.com/).
 
-![screenshot](https://raw.github.com/Joxit/tile-server-ui/master/screenshot.png "Screenshot of Tile Server UI")
-![tiles-bounds](https://raw.github.com/Joxit/tile-server-ui/master/tiles-bounds.png "Screenshot of Tile Server UI with tiles bounds")
+## [GitHub Page](https://joxit.github.io/tile-server-ui/) and [Live Demo](https://joxit.github.io/tile-server-ui/demo/)
+
+## Content
+
+-   [Features](#features)
+-   [Getting Started](#getting-started)
+    -   [Basic](#basic)
+    -   [Docker](#docker)
+        -   [Get the docker image](#get-the-docker-image)
+        -   [Run the docker](#run-the-docker)
+-   [Screenshots](#screenshots)
 
 ## Features
 
@@ -73,3 +83,8 @@ To run the docker and see the website on your 80 port, try this :
 ```sh
 docker run -d -p 80:80 joxit/tile-server-ui
 ```
+
+## Screenshots
+
+![screenshot](https://raw.github.com/Joxit/tile-server-ui/master/screenshot.png "Screenshot of Tile Server UI")
+![tiles-bounds](https://raw.github.com/Joxit/tile-server-ui/master/tiles-bounds.png "Screenshot of Tile Server UI with tiles bounds")

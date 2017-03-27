@@ -32,10 +32,10 @@ leafletUI.tileServer.getServers = function(i) {
 };
 leafletUI.tileServer.servers = leafletUI.tileServer.getServers();
 leafletUI.tileServer.url = function() {
-  if (leafletUI.tileServer.servers && leafletUI.tileServer.servers.length > 0) {
-    return leafletUI.tileServer.servers[0] || '';
+  if (leafletUI.tileServer.servers && leafletUI.tileServer.servers.length > 0 && leafletUI.tileServer.servers[0] && leafletUI.tileServer.servers[0].length > 0) {
+    return leafletUI.tileServer.servers[0];
   }
-  return '';
+  return 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 }
 
 leafletUI.tileServer.overlayUrl = function() {

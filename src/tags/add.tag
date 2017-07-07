@@ -46,7 +46,7 @@
         addTileServer(leafletUI.addTag.tileServerList.value);
         changeTileServer(leafletUI.addTag.tileServerList.value);
         leafletUI.tileServer.layer.setUrl(leafletUI.addTag.tileServerList.value);
-        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been setted.', false);
+        leafletUI.snackbar(leafletUI.addTag.tileServerList.value + ' has been set.', false);
       } else {
         leafletUI.snackbar('Nothing to set.', false);
       }

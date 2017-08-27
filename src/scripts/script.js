@@ -49,7 +49,7 @@ leafletUI.tileServer.overlayUrl = function() {
 };
 
 leafletUI.tileServer.opts = {
-  attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',
+  attribution: '&copy; <a href="https://joxit.github.io/">Joxit</a> and your tile server. <a href="https://joxit.github.io/tile-server-ui">tile-server-ui</a>.',
   maxZoom: 22,
 };
 leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url(),
@@ -106,8 +106,28 @@ var changeTileServer = function(url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
+function getUrlQueryParam() {
+  var search = window.location.search;
+  if (search && search.indexOf('[?&]url=') < 0) {
+    var param = search.split(/[?&]/).find(function(param) {
+      return param && /^url=/.test(param);
+    });
+    return param ? param.replace(/^url=/, '') : param;
+  }
+}
+
 riot.compile(function() {
   this.onload = function () {
+    if (window.location.search && window.location.search.indexOf('[?&]url=') < 0) {
+      var url = getUrlQueryParam();
+      if (url){
+        try {
+          leafletUI.tileServer.layer.setUrl(url.startsWith('http') ? window.decodeURI(url) : atob(url));
+        } catch(e) {
+          console.log(e);
+        }
+      } 
+    }
     riot.mount('*');
   }
 });

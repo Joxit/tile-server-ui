@@ -61,7 +61,28 @@ leafletUI.tileServer.overlay = L.tileLayer(leafletUI.tileServer.overlayUrl(),
 leafletUI.tileServer.layer.addTo(leafletUI.map);
 leafletUI.tileServer.overlay.addTo(leafletUI.map);
 
+leafletUI.tileServer.layer.setUrlHistory =
+  leafletUI.tileServer.overlay.setUrlHistory = function(url) {
+    this.setUrl(url);
+    var query = '?';
+    if (leafletUI.tileServer.layer._url) {
+      query += 'url=' + leafletUI.encodeURI(leafletUI.tileServer.layer._url);
+    }
+    if (leafletUI.tileServer.overlay._url) {
+      query += '&overlay=' + leafletUI.encodeURI(leafletUI.tileServer.overlay._url);
+    }
+    history.pushState(null, '', query + window.location.hash)
+  };
+
 leafletUI.URL_REGEX = /[&?]url=/;
+
+leafletUI.encodeURI = function(url) {
+  return url.indexOf('&') < 0 ? window.encodeURI(url) : btoa(url);
+};
+
+leafletUI.decodeURI = function(url) {
+  return url.startsWith('http') ? window.decodeURI(url) : atob(url);
+};
 
 var addTileServer = function(url) {
   var tileServer = leafletUI.tileServer.getServers();
@@ -119,12 +140,12 @@ function getUrlQueryParam() {
 }
 
 riot.compile(function() {
-  this.onload = function () {
+  this.onload = function() {
     var url = getUrlQueryParam();
-    if (url){
+    if (url) {
       try {
-        leafletUI.tileServer.layer.setUrl(url.startsWith('http') ? window.decodeURI(url) : atob(url));
-      } catch(e) {
+        leafletUI.tileServer.layer.setUrl(leafletUI.decodeURI(url));
+      } catch (e) {
         console.log(e);
       }
     }

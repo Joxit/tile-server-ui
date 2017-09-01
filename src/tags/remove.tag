@@ -56,7 +56,7 @@
 
     leafletUI.removeTag.overlay = function () {
       localStorage.setItem('tileServerOverlay', '');
-      leafletUI.tileServer.overlay.setUrl('');
+      leafletUI.tileServer.overlay.setUrlHistory('');
     };
 
     this.on('updated', function () {

@@ -40,13 +40,13 @@
     leafletUI.changeTag.change = function () {
       var url = leafletUI.changeTag.tileServerList.value;
       changeTileServer(url);
-      leafletUI.tileServer.layer.setUrl(url);
+      leafletUI.tileServer.layer.setUrlHistory(url);
       leafletUI.changeTag.close();
     };
     leafletUI.changeTag.overlay = function () {
       var url = leafletUI.changeTag.tileServerList.value;
       localStorage.setItem('tileServerOverlay', JSON.stringify(url));
-      leafletUI.tileServer.overlay.setUrl(url);
+      leafletUI.tileServer.overlay.setUrlHistory(url);
       leafletUI.changeTag.close();
     }
     leafletUI.changeTag.show = function () {

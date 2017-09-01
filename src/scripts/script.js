@@ -49,7 +49,7 @@ leafletUI.tileServer.overlayUrl = function() {
 };
 
 leafletUI.tileServer.opts = {
-  attribution: '&copy; <a href="https://github.com/Joxit">Joxit</a> and your tile server',
+  attribution: '&copy; <a href="https://joxit.github.io/">Joxit</a> and your tile server. <a href="https://joxit.github.io/tile-server-ui">tile-server-ui</a>.',
   maxZoom: 22,
 };
 leafletUI.tileServer.layer = L.tileLayer(leafletUI.tileServer.url(),
@@ -60,6 +60,29 @@ leafletUI.tileServer.overlay = L.tileLayer(leafletUI.tileServer.overlayUrl(),
 
 leafletUI.tileServer.layer.addTo(leafletUI.map);
 leafletUI.tileServer.overlay.addTo(leafletUI.map);
+
+leafletUI.tileServer.layer.setUrlHistory =
+  leafletUI.tileServer.overlay.setUrlHistory = function(url) {
+    this.setUrl(url);
+    var query = '?';
+    if (leafletUI.tileServer.layer._url) {
+      query += 'url=' + leafletUI.encodeURI(leafletUI.tileServer.layer._url);
+    }
+    if (leafletUI.tileServer.overlay._url) {
+      query += '&overlay=' + leafletUI.encodeURI(leafletUI.tileServer.overlay._url);
+    }
+    history.pushState(null, '', query + window.location.hash)
+  };
+
+leafletUI.URL_REGEX = /[&?]url=/;
+
+leafletUI.encodeURI = function(url) {
+  return url.indexOf('&') < 0 ? window.encodeURI(url) : btoa(url);
+};
+
+leafletUI.decodeURI = function(url) {
+  return url.startsWith('http') ? window.decodeURI(url) : atob(url);
+};
 
 var addTileServer = function(url) {
   var tileServer = leafletUI.tileServer.getServers();
@@ -106,8 +129,26 @@ var changeTileServer = function(url) {
   localStorage.setItem('tileServer', JSON.stringify(tileServer));
 }
 
+function getUrlQueryParam() {
+  var search = window.location.search;
+  if (leafletUI.URL_REGEX.test(search)) {
+    var param = search.split(/[?&]/).find(function(param) {
+      return param && /^url=/.test(param);
+    });
+    return param ? param.replace(/^url=/, '') : param;
+  }
+}
+
 riot.compile(function() {
-  this.onload = function () {
+  this.onload = function() {
+    var url = getUrlQueryParam();
+    if (url) {
+      try {
+        leafletUI.tileServer.layer.setUrl(leafletUI.decodeURI(url));
+      } catch (e) {
+        console.log(e);
+      }
+    }
     riot.mount('*');
   }
 });

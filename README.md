@@ -7,7 +7,7 @@ The default tile-server is openstreetmap on this UI and you can add your own acc
 All tile servers will be stored in the [local storage](https://en.wikipedia.org/wiki/Web_storage#Local_and_session_storage) of your browser.
 This project uses [Riot](http://riotjs.com/), [riot-mui](http://kysonic.github.io/riot-mui/) and [leaflet](http://leafletjs.com/).
 
-## [GitHub Page](https://joxit.github.io/tile-server-ui/) and [Live Demo](https://joxit.github.io/tile-server-ui/demo/)
+## [GitHub Page](https://joxit.dev/tile-server-ui/) and [Live Demo](https://joxit.dev/tile-server-ui/demo/)
 
 ## Content
 

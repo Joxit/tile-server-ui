@@ -115,6 +115,7 @@ material-popup material-button:hover material-waves {
 }
 
 material-popup .popup {
+  top: 2em;
   max-width: 450px;
   z-index: 1000;
 }
